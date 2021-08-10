@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/Assets/Exameject.svg">
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/Assets/Exameject.svg">
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" href="/Assets/Exameject.svg">
+    <!-- iPhone 5 (640px x 1136px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/Assets/Exameject.svg">
+    <!-- iPad Mini, Air (1536px x 2048px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="/Assets/Exameject.svg">
+    <!-- iPad Pro 10.5" (1668px x 2224px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="/Assets/Exameject.svg">
+    <!-- iPad Pro 12.9" (2048px x 2732px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="/Assets/Exameject.svg">
+
+    <title>Worksheet-Creator | Educatart</title>
+    <link rel="icon" href="/Educatart/Educatart.png" type="image/png">
+</head>
+
+<body onload="load();">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyARPDo0owqf-3DY13O9ONKlD1T4SddXFdA",
+            authDomain: "exameject.firebaseapp.com",
+            projectId: "exameject",
+            storageBucket: "exameject.appspot.com",
+            messagingSenderId: "602815195526",
+            appId: "1:602815195526:web:17e7307a8e3d27cd716407"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+    <div class="header">
+        <h1>Exameject</h1>
+    </div>
+
+    <ul class="circles" style="position: fixed; top: -2.5%; left: 0%;">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div id="file-upload-form" class="uploader">
+
+        <label for="file-upload" id="file-drag">
+      <div id="class subject selector">
+        <div class="aks-form">
+          <label class="aks-form-label" for="Institute">Institute</label>
+        <input type="text" spellcheck="false" autocomplete="off" id="Institute" value="" class="aks-input" placeholder="Enter your Institute">
+    </div>
+    <div class="aks-form">
+        <button class="dropdown-button" id="select-sub" type="button">Subject</button>
+    </div>
+
+    <div class="aks-form">
+        <button class="dropdown-button" id="select-clas" type="button">Class</button>
+    </div>
+    <span id="next-button-for-setting_class" onclick="set_Class_Subject();" class="btn btn-primary">Next</span>
+    </div>
+    <div id="Optional" style="display: none;">
+        <h1>Worksheet</h1>
+        <div class="aks-form">
+            <label class="aks-form-label" for="Question_Optional">Question</label>
+            <input type="text" spellcheck="false" autocomplete="off" id="Question_Optional" value="" class="aks-input" placeholder="Question">
+        </div>
+        <div class="aks-form">
+            <label class="aks-form-label" for="Option1_Optional">Option 1</label>
+            <input type="text" name="name" spellcheck="false" autocomplete="off" id="Option1_Optional" value="" class="aks-input" placeholder="Option 1">
+        </div>
+        <div class="aks-form">
+            <label class="aks-form-label" for="Option2_Optional">Option 2</label>
+            <input type="text" name="name" spellcheck="false" autocomplete="off" id="Option2_Optional" class="aks-input" placeholder="Option 2">
+        </div>
+        <div class="aks-form">
+            <label class="aks-form-label" for="Option3_Optional">Option 3</label>
+            <input value="" type="text" spellcheck="false" autocomplete="off" name="name" id="Option3_Optional" class="aks-input" placeholder="Option 3">
+        </div>
+        <div class="aks-form">
+            <label class="aks-form-label" for="Correct Option Optional">Correct Option</label>
+            <input value="" type="text" spellcheck="false" autocomplete="off" name="name" id="Correct Option Optional" class="aks-input" placeholder="Correct Option">
+        </div>
+        <label id="error-messge-label" style="display: none;"></label>
+        <span id="submit-button-for-quiz" onclick="send_Question();" class="btn btn-primary">Submit</span>
+    </div>
+
+    <div id="sharePage" style="display: none;">
+        <p id="tip">Your browser dose not support Web Share API!</p>
+        <button id="share"><i class="fad fa-share-alt fa-2x"></i></button>
+        <h2>Share</h2>
+    </div>
+
+    </label>
+    </div>
+
+    <div class="dropdown ds" id="sub-list" style="overflow: visible;">
+        <div class="line"></div>
+        <h1>Select Subject</h1>
+        <button id="sub-english">English</button>
+        <button id="sub-Science">Science</button>
+        <button id="sub-SSt">Social Studies</button>
+        <button id="sub-Physical">Physical Education</button>
+        <button id="sub-Computer">Computer Basics</button>
+        <button id="sub-Art">Arts (Drawing)</button>
+        <button id="sub-fineArt">Fine arts</button>
+        <button id="sub-Chemistry">Chemistry</button>
+        <button id="sub-Physics">Physics</button>
+        <button id="sub-Biology">Biology</button>
+        <button id="sub-Statistics">Statistics</button>
+        <button id="sub-Business">Business Studies</button>
+    </div>
+
+
+    <div class="dropdown ds" id="clas-list">
+        <div class="line"></div>
+        <h1>Select Class</h1>
+        <button id="clas-1">1</button>
+        <button id="clas-2">2</button>
+        <button id="clas-3">3</button>
+        <button id="clas-4">4</button>
+        <button id="clas-5">5</button>
+        <button id="clas-6">6</button>
+        <button id="clas-7">7</button>
+        <button id="clas-8">8</button>
+        <button id="clas-9">9</button>
+        <button id="clas-10">10</button>
+        <button id="clas-11">11</button>
+        <button id="clas-12">12</button>
+    </div>
+
+    <span id="finish" class="finish" style="position: fixed;top: 0; right: 0%;" onclick="finish();">
+    <i class="fad fa-flag-checkered" style="font-size: xx-large;"></i>
+  </span>
+
+    <span class="return" style="position: fixed;top: 0; left: 0;" onclick="back();">
+    <i class="fad fa-arrow-left" style="font-size: xx-large;"></i>
+  </span>
+
+    <div id="preLoader bg">
+        <svg class="gegga">
+      <defs>
+        <filter id="gegga">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 20 -10"
+            result="inreGegga" />
+          <feComposite in="SourceGraphic" in2="inreGegga" operator="atop" />
+        </filter>
+      </defs>
+    </svg>
+        <svg class="snurra" width="200" height="200" viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="linjärGradient">
+          <stop class="stopp1" offset="0" />
+          <stop class="stopp2" offset="1" />
+        </linearGradient>
+        <linearGradient y2="160" x2="160" y1="40" x1="40" gradientUnits="userSpaceOnUse" id="gradient"
+          xlink:href="#linjärGradient" />
+      </defs>
+      <path class="halvan"
+        d="m 164,100 c 0,-35.346224 -28.65378,-64 -64,-64 -35.346224,0 -64,28.653776 -64,64 0,35.34622 28.653776,64 64,64 35.34622,0 64,-26.21502 64,-64 0,-37.784981 -26.92058,-64 -64,-64 -37.079421,0 -65.267479,26.922736 -64,64 1.267479,37.07726 26.703171,65.05317 64,64 37.29683,-1.05317 64,-64 64,-64" />
+      <circle class="strecken" cx="100" cy="100" r="64" />
+    </svg>
+    </div>
+
+</body>
+
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="/Blueprint/swipe.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+
+</html>
